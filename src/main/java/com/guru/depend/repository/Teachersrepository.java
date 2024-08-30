@@ -8,5 +8,6 @@ import com.guru.depend.entity.Teachers;
 
 public interface Teachersrepository extends JpaRepository<Teachers, Integer> {
 
-	List<Object> findbyschoolid(int id);
+	List<Object> findAllBySchoolId(int id);
+    Long findAllTeacherCountBySchoolId(int id);
 }

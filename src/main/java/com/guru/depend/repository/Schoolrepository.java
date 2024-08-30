@@ -7,3 +7,4 @@ import com.guru.depend.entity.School;
 public interface Schoolrepository extends JpaRepository<School, Integer> {
 
 }
+
