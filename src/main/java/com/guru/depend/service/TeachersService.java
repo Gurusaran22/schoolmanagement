@@ -1,16 +1,10 @@
 package com.guru.depend.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.guru.depend.entity.School;
-import com.guru.depend.entity.Students;
 import com.guru.depend.entity.Teachers;
+import com.guru.depend.exception.UserIdNotFoundException;
 import com.guru.depend.repository.TeachersRepository;
 @Service
 public class TeachersService {
@@ -31,48 +25,26 @@ public class TeachersService {
     }
     
 	//to view the particular teacher details by the help of teacherid
-	public Teachers getTeachersDetails(Long id) {
-		 Optional<Teachers> teacher= teachersrepository.findById(id);
-	 		if(teacher.isPresent()) {
-	 			return teacher.get();
-	 		}
-	 		else {
-	 			throw new RuntimeException();
-	 		}
-	 	}
+    public Teachers getTeachersDetails(Long id) {
+    	return teachersrepository.findById(id).orElseThrow(()->new UserIdNotFoundException("teacher not found by this id"));
+    }
 	
 	//to update the school details by the help of teacherid
-    public Teachers updateTeachers(Long id,Teachers teachers) 
+	public String  updateTeacher(Long id,Teachers teachers) 
 	 {
-		 if(teachersrepository.existsById(id))
-		 {
-			 teachers.setId(id);
-			 return teachersrepository.save(teachers);
-		 }
-		 else 
-		 {
-	    	 throw new RuntimeException("school id not found"+id);	
-		 }
+  	Teachers teacher=teachersrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
+  	    teacher.setId(id);
+  	    teachersrepository.save(teacher);
+  	    return "teacher details updated sucessfully";
 	 }
-	 
+   
 	//to delete the teacher with the help of teacherid  
-    public Map<String,Object> deleteById(Long id)
-     {
-		Map<String,Object> response=new HashMap<>();
-		boolean ifidExit=teachersrepository.existsById(id);	
-		if(ifidExit)
-		{
-			teachersrepository.deleteById(id);
-			response.put("Id deleted sucessfully", id);
-			return response;
-		}
-		else
-		{
-			response.put("Id not found",id);
-			return response;
-		}
-	}
-
+	public String  deleteById(Long id) 
+	 {
+ 	Teachers teacher=teachersrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
+ 	    teachersrepository.delete(teacher);
+ 	    return "teacher deleted sucessfully";
+	 }
  }
 
 

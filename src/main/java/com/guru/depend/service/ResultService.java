@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.guru.depend.entity.Result;
+import com.guru.depend.exception.UserIdNotFoundException;
 import com.guru.depend.repository.ResultRepository;
 
 @Service
@@ -26,7 +27,8 @@ public class ResultService {
 	}
 	
 	//to update the question details by the help of questionid
-    public Result updateSchool(Long id,Result result) 
+	
+    public Result updateDetails(Long id,Result result) 
 	 {
 		 if(resultrepository.existsById(id))
 		 {
@@ -35,7 +37,7 @@ public class ResultService {
 		 }
 		 else 
 		 {
-	    	 throw new RuntimeException("question id not found by id"+id);	
+	    	 throw new UserIdNotFoundException("question id not found by id");	
 		 }
 	 }
 	

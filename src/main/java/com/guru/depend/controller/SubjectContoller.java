@@ -1,8 +1,6 @@
 package com.guru.depend.controller;
 
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +16,8 @@ import com.guru.depend.service.SubjectService;
 @RestController
 @RequestMapping("api/subject")
 public class SubjectContoller {
-
 	@Autowired
 	private SubjectService subjectservice;
-	
 	@PostMapping("/")
 	public Subject addrecord( @RequestBody Subject subject) {
 		return subjectservice.createRecord(subject);
@@ -30,15 +26,12 @@ public class SubjectContoller {
 	public List<Subject> allData(){
 		return subjectservice.allData();
 	}
-	
 	@PutMapping("/update/{id}")
-	public Subject updateRecord(@PathVariable Long id,@RequestBody Subject subject) {
-		return subjectservice.updateSchool(id, subject);
+	public String updateRecord(@PathVariable Long id,@RequestBody Subject subject) {
+		return subjectservice.updateSubject(id, subject);
 	}
-	
 	@DeleteMapping("/delete/{id}")
-	public Map<String, Object> deleteQuiz(@PathVariable Long id) {
+	public String deleteQuiz(@PathVariable Long id) {
 		return subjectservice.deleteById(id);
 	}
-	
 }

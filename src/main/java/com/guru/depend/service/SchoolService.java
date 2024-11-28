@@ -1,25 +1,21 @@
 package com.guru.depend.service;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import com.guru.depend.entity.School;
-import com.guru.depend.entity.Students;
+import com.guru.depend.exception.UserIdNotFoundException;
 import com.guru.depend.repository.SchoolRepository;
 import com.guru.depend.repository.StudentsRepository;
 import com.guru.depend.repository.TeachersRepository;
-
-import jakarta.persistence.Id;
 
 @Service
 public class SchoolService { 
@@ -39,7 +35,7 @@ public class SchoolService {
 	//to view all the data
 	public List<School> allData(){
 		return schoolrepository.findAll();
-	}	//C:\Users\Fyndus Tech Soln\Documents\workspace-spring-tool-suite-4-4.24.0.RELEASE\qschoo
+	}	
 	
 	//to get all school and teacher by  one particular school based on schoolid 
 	public List<Object> getallstudentandteacherbyschoolname(@PathVariable Long id){
@@ -49,16 +45,10 @@ public class SchoolService {
 		return schools;	
 	}
 	
-	public School getSchoolDetailsById(Long id) {
-		Optional<School> school= schoolrepository.findById(id);
- 		if(school.isPresent()) {
- 			return school.get();
- 		}
- 		else {
- 			throw new RuntimeException();
- 		}
- 	}
- 
+		public School getSchoolDetailsById(Long id) {
+	return schoolrepository.findById(id).orElseThrow(()->new UserIdNotFoundException("school not found by this id"));
+	}
+	
 	//to  see the student count in particular school by school id
 	public Map<String,Long> getStudentCountById(Long id){
 		Long count=studentrepository.countBySchoolId(id);
@@ -76,34 +66,27 @@ public class SchoolService {
 	}
 	
 	//to update the school details by the help of schoolid
-	 public  School updateSchool(Long id,School school) {
-	 
-		 if(schoolrepository.existsById(id))
+	 public String  updateSchool(Long id,School school) 
 	 {
-			 school.setId(id);
-			 return schoolrepository.save(school);
-		 }
-		 else 
-		 {
-	    	 throw new RuntimeException("school id not found"+id);	
-		 }
+    	School schl=schoolrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
+    	    schl.setId(id);
+    	    schoolrepository.save(schl);
+    	    return "question updated sucessfully";
 	 }
 	 
 	 //to delete the school with the help of schoolid  
-	public Map<String,Object> deleteById(Long id){
-		Map<String, Object> response=new HashMap<>();
-		boolean ifidExit=schoolrepository.existsById(id);
-		if(ifidExit) 
-		{
-			schoolrepository.deleteById(id);
-			response.put("Id deleted sucessfully", id);
-			return response;
-		}
-		else 
-		{
-			response.put("id not found", id);
-		    return response;
-        }
-	}
-	
+	 public String  DeleteById(Long id) 
+	 {
+    	School schl=schoolrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
+    	    schoolrepository.delete(schl);
+    	    return "question deleted sucessfully";
+	 }
+	 
+     //sorting the page
+	 public Page<School> getSchoolByPage(int pageIndex,int pageSize,String field){
+		     Sort sort=Sort.by(Sort.Direction.ASC,field);
+	        Pageable pageReq=PageRequest.of(pageIndex, pageSize, sort);
+	        return schoolrepository.findAll(pageReq);
+	 }
+	 
 }

@@ -1,3 +1,5 @@
+
+
 package com.guru.depend;
 
 import org.springframework.boot.SpringApplication;
@@ -10,4 +12,4 @@ public class SchoolmanagementApplication {
 		SpringApplication.run(SchoolmanagementApplication.class, args);
 	}
 
-}
+} 

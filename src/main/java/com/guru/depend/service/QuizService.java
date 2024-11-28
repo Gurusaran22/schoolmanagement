@@ -1,61 +1,73 @@
 package com.guru.depend.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.guru.depend.dto.AnswerDTO;
+import com.guru.depend.dto.MessageResponse;
+import com.guru.depend.dto.QuestionDTO;
+import com.guru.depend.dto.QuizSubmissionDTO;
+import com.guru.depend.entity.Questions;
 import com.guru.depend.entity.Quiz;
+import com.guru.depend.entity.StudentAnswer;
+import com.guru.depend.entity.Students;
+import com.guru.depend.exception.UserIdNotFoundException;
+import com.guru.depend.repository.QuestionsRepository;
 import com.guru.depend.repository.QuizRepository;
+import com.guru.depend.repository.StudentAnswerRespository;
+import com.guru.depend.repository.StudentsRepository;
 @Service
 public class QuizService {
 
 	@Autowired
 	private QuizRepository  quizrepository;
+	@Autowired
+	 private QuestionsRepository questionsrepository;
+	@Autowired
+	private StudentsRepository studentsrepository;
+	@Autowired
+	private StudentAnswerRespository studentanswerrepository;
 	
 	public Quiz createRecord(Quiz quiz )
 	{
 		return quizrepository.save(quiz);
 	}
-
     //to view all the data
 	public List<Quiz> allData()
 	{
 		return quizrepository.findAll();
 	}
-	
-	//to update the question details by the help of questionid
-    public Quiz updateQuiz(Long id,Quiz quiz) 
+	//to get the question and choices 
+    public List<QuestionDTO>  queastion() {
+  	List<Questions> ques=questionsrepository.findAll();
+  	List<QuestionDTO> questionDTOs = ques.stream()
+              .map(this::convert)
+              .collect(Collectors.toList());
+  	return questionDTOs;
+    } 
+    public QuestionDTO convert(Questions question) {
+ 	return QuestionDTO.builder().id(question.getId()).question(question.getQuestion()).option1(question.getOption1()).option2(question.getOption2()).option3(question.getOption3()).build();
+    }
+    // to submit the student answer
+    public MessageResponse submitQuiz(QuizSubmissionDTO submissionDTO) {
+   	Students student=studentsrepository.findById(submissionDTO.getStudentId()).orElseThrow();
+   	Quiz quiz =quizrepository.findById(submissionDTO.getQuizId()).orElseThrow();
+   	for(AnswerDTO answerDTo :submissionDTO.getSanswer()) {
+   	Questions question=questionsrepository.findById(answerDTo.getQuestionId()).orElseThrow();
+   	  StudentAnswer answer=new StudentAnswer();
+    	answer.setStudents(student);
+   		answer.setQuiz(quiz);
+   		answer.setQuestions(question);
+   		answer.setSanswer(answerDTo.getSanswer());	
+   	    studentanswerrepository.save(answer);
+    	}
+	    return  MessageResponse.builder().message("answer submitted sucessfully").statusCode(200).build();
+        }
+    public String  deleteById(Long id) 
 	 {
-		 if(quizrepository.existsById(id))
-		 {
-			 quiz.setId(id);
-			 return quizrepository.save(quiz);
-		 }
-		 else 
-		 {
-	    	 throw new RuntimeException("question id not found by id"+id);	
-		 }
+   	Questions question=questionsrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
+   	   questionsrepository.delete(question);
+   	    return "question updated sucessfully";
 	 }
-	
-    //to delete the question with the help of questionid  
-    public Map<String,Object> deleteById(Long id)
-    {
-		Map<String,Object> response=new HashMap<>();
-		boolean ifidExit=quizrepository.existsById(id);		
-		  if(ifidExit)
-		  {
-			quizrepository.deleteById(id);
-			response.put("Id deleted sucessfully", id);
-			return response;
-		  }
-		else 
-		{
-			response.put("Id not found",id);
-			return response;
-		}
-	}
-
 }
