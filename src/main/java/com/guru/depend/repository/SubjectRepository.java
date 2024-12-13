@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.guru.depend.entity.Subject;
 
-public interface SubjectRepository  extends JpaRepository<Subject,Long>{
+public interface Subjectrepository  extends JpaRepository<Subject,Long>{
 
 }

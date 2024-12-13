@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.guru.depend.entity.Teachers;
-import com.guru.depend.service.TeachersService;
+import com.guru.depend.service.Teachersservice;
 
 @RestController
 
 @RequestMapping("/api/teachers")
 public class Teacherscontroller {
 	@Autowired 
-	private TeachersService teachersservice;
+	private Teachersservice teachersservice;
 	//to store the teacher
 	@PostMapping("/")
 	public Teachers createRecord(@RequestBody Teachers teachers) {

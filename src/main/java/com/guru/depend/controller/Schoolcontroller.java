@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.guru.depend.entity.School;
-import com.guru.depend.service.SchoolService;
+import com.guru.depend.service.Schoolservice;
 @RestController
 @RequestMapping("/api/school")
 public class Schoolcontroller {
 	@Autowired 
-	private SchoolService schoolservice;
+	private Schoolservice schoolservice;
+
 	//to create the school
 	@PostMapping("/")
 	public School createschool(@RequestBody School school) {

@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.guru.depend.entity.Students;
-import com.guru.depend.service.StudentsService;
+import com.guru.depend.service.Studentsservice;
 @RestController
 
-@RequestMapping("/api/students")
+@RequestMapping("/api/v1")
 public class Studentscontroller {
 	@Autowired 
-	private StudentsService studentsservice;
+	private Studentsservice studentsservice;
     //to store student
 	@PostMapping("/")
 	public Students createRecord(@RequestBody Students students) {

@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.guru.depend.entity.User;
-import com.guru.depend.service.UserService;
+import com.guru.depend.service.Userservice;
 
 @RestController
 @RequestMapping("/api/register")
-public class UserController {
+public class Usercontroller {
 
 	@Autowired
-	private UserService userservice;
+	private Userservice userservice;
 	
 	@PostMapping("/")
 	public User addUser(@RequestBody User user) {

@@ -6,15 +6,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.guru.depend.entity.MyUser;
+import com.guru.depend.entity.Myuser;
 import com.guru.depend.entity.User;
-import com.guru.depend.repository.userRepository;
+import com.guru.depend.repository.Userrepository;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService{
+public class Myuserdetailsservice implements UserDetailsService{
 
 	@Autowired
-	private userRepository userrepository;
+	private Userrepository userrepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService{
 		if(users==null) {
 			System.out.println("user not found");
 		}
-		return new MyUser(users);
+		return new Myuser(users);
 	
 	}
 

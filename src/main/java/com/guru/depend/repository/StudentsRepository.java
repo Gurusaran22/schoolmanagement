@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.guru.depend.entity.Students;
 
-public interface StudentsRepository  extends JpaRepository<Students, Long>{
+public interface Studentsrepository  extends JpaRepository<Students, Long>{
 //
      	Long findAllBySchoolId(Long id);
 	

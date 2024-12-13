@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.guru.depend.dto.QuestionDTO;
+import com.guru.depend.dto.Questiondto;
 import com.guru.depend.entity.Questions;
-import com.guru.depend.service.QuestionsService;
+import com.guru.depend.service.Questionsservice;
 
 @RestController
 @RequestMapping("/api/questions")
 public class Questionscontroller {	
 	@Autowired 
-	private QuestionsService questionsservice;
+	private Questionsservice questionsservice;
 	//to store an question
 	@PostMapping("/")
 	 public Questions createrecord(@RequestBody Questions questions) {
@@ -32,11 +32,11 @@ public class Questionscontroller {
 	}
 	//to view thw question and choices with the help of question id
     @GetMapping("/question/{id}")
-    public List<QuestionDTO> getQuestion(@PathVariable Long id){
+    public List<Questiondto> getQuestion(@PathVariable Long id){
     return questionsservice.getQuestion(id);
     }
     //to get the question and choices based on the subject id
-    public List<QuestionDTO> getQuestionBySubject(@PathVariable Long id){
+    public List<Questiondto> getQuestionBySubject(@PathVariable Long id){
     	return questionsservice.getQuestionBySubject(id);
     }
 	//to update the question by id

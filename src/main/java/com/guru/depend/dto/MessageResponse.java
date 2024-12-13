@@ -6,14 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 @Data
 @Builder
-public class MessageResponse {
+public class Messageresponse {
 
 	private int statusCode;
     private Date timestamp;
     private String message;
     private String description;
 
-    public MessageResponse(int statusCode, Date timestamp, String message, String description) {
+    public Messageresponse(int statusCode, Date timestamp, String message, String description) {
         this.statusCode = statusCode;
         this.timestamp = timestamp;
         this.message = message;

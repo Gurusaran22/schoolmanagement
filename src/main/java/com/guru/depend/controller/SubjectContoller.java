@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.guru.depend.entity.Subject;
-import com.guru.depend.service.SubjectService;
+import com.guru.depend.service.Subjectservice;
 
 @RestController
-@RequestMapping("api/subject")
-public class SubjectContoller {
+@RequestMapping("api/v1")
+public class Subjectcontoller {
 	@Autowired
-	private SubjectService subjectservice;
+	private Subjectservice subjectservice;
 	@PostMapping("/")
 	public Subject addrecord( @RequestBody Subject subject) {
 		return subjectservice.createRecord(subject);

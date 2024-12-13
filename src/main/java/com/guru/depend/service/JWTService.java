@@ -19,12 +19,11 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 @Service
-public class JWTService {
+public class Jwtservice {
 
 	private  String secret="";
 	
-	
-	 public JWTService() {
+	 public Jwtservice() {
 
 	        try {
 	            KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
@@ -39,7 +38,7 @@ public class JWTService {
 	}
 
 	public String generateToken(String username) {
-		 Map<String,Object> claims=new HashMap<>();
+	 Map<String,Object> claims=new HashMap<>();
 		return createToken(claims,username);
 	}
 

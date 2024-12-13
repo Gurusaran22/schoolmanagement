@@ -12,20 +12,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.guru.depend.entity.School;
-import com.guru.depend.exception.UserIdNotFoundException;
-import com.guru.depend.repository.SchoolRepository;
-import com.guru.depend.repository.StudentsRepository;
-import com.guru.depend.repository.TeachersRepository;
+import com.guru.depend.exception.Useridnotfoundexception;
+import com.guru.depend.repository.Schoolrepository;
+import com.guru.depend.repository.Studentsrepository;
+import com.guru.depend.repository.Teachersrepository;
 
 @Service
-public class SchoolService { 
+public class Schoolservice { 
 
 	@Autowired 
-	private SchoolRepository schoolrepository;
+	private Schoolrepository schoolrepository;
 	@Autowired 
-	private StudentsRepository studentrepository;
+	private Studentsrepository studentrepository;
 	@Autowired 
-	private TeachersRepository teachersrepository;
+	private Teachersrepository teachersrepository;
 	
 	//to save the school
 	public School createRecord( School school) {
@@ -46,7 +46,7 @@ public class SchoolService {
 	}
 	
 		public School getSchoolDetailsById(Long id) {
-	return schoolrepository.findById(id).orElseThrow(()->new UserIdNotFoundException("school not found by this id"));
+	return schoolrepository.findById(id).orElseThrow(()->new Useridnotfoundexception("school not found by this id"));
 	}
 	
 	//to  see the student count in particular school by school id
@@ -68,7 +68,7 @@ public class SchoolService {
 	//to update the school details by the help of schoolid
 	 public String  updateSchool(Long id,School school) 
 	 {
-    	School schl=schoolrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
+    	School schl=schoolrepository.findById(id).orElseThrow(()-> new Useridnotfoundexception("id not found"));
     	    schl.setId(id);
     	    schoolrepository.save(schl);
     	    return "question updated sucessfully";
@@ -77,7 +77,7 @@ public class SchoolService {
 	 //to delete the school with the help of schoolid  
 	 public String  DeleteById(Long id) 
 	 {
-    	School schl=schoolrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
+    	School schl=schoolrepository.findById(id).orElseThrow(()-> new Useridnotfoundexception("id not found"));
     	    schoolrepository.delete(schl);
     	    return "question deleted sucessfully";
 	 }

@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
-import com.guru.depend.dto.MessageResponse;
+import com.guru.depend.dto.Messageresponse;
 
 @ControllerAdvice
-	public class GlobalExceptionHandler {
-	    @ExceptionHandler({UserIdNotFoundException.class})
+	public class Globalexceptionhandler {
+	    @ExceptionHandler({Useridnotfoundexception.class})
 	    @ResponseStatus(HttpStatus.NOT_FOUND)
-	    public ResponseEntity<MessageResponse> handleStudentNotFoundException(UserIdNotFoundException exception,WebRequest request) {
-	    	MessageResponse messageresponse = new MessageResponse(
+	    public ResponseEntity<Messageresponse> handleStudentNotFoundException(Useridnotfoundexception exception,WebRequest request) {
+	    	Messageresponse messageresponse = new Messageresponse(
 	    			HttpStatus.BAD_REQUEST.value(),
 	    			new Date(),
 	    			exception.getMessage(),

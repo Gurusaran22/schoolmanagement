@@ -7,9 +7,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class QuizSubmissionDTO {
+public class Quizsubmissiondto {
 
 	private Long StudentId;
 	private Long quizId;
-	private List<AnswerDTO> sanswer;
+	private List<Answerdto> sanswer;
 }

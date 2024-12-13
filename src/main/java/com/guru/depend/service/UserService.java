@@ -10,16 +10,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.guru.depend.entity.User;
-import com.guru.depend.repository.userRepository;
+import com.guru.depend.repository.Userrepository;
 
 @Service
-public class UserService {
+public class Userservice {
 
 	@Autowired
-	private userRepository userrepository;
+	private Userrepository userrepository;
 	
 	@Autowired
-	private JWTService jwtservice;
+	private Jwtservice jwtservice;
 	@Autowired
 	private AuthenticationManager auth;
 	

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.guru.depend.entity.Teachers;
 @Repository
-public interface TeachersRepository extends JpaRepository<Teachers, Long> {
+public interface Teachersrepository extends JpaRepository<Teachers, Long> {
 
 	List<Object> findAllBySchoolId(Long id);
 	

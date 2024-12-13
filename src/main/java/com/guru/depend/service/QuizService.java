@@ -4,30 +4,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.guru.depend.dto.AnswerDTO;
-import com.guru.depend.dto.MessageResponse;
-import com.guru.depend.dto.QuestionDTO;
-import com.guru.depend.dto.QuizSubmissionDTO;
+import com.guru.depend.dto.Answerdto;
+import com.guru.depend.dto.Messageresponse;
+import com.guru.depend.dto.Questiondto;
+import com.guru.depend.dto.Quizsubmissiondto;
 import com.guru.depend.entity.Questions;
 import com.guru.depend.entity.Quiz;
-import com.guru.depend.entity.StudentAnswer;
+import com.guru.depend.entity.Studentanswer;
 import com.guru.depend.entity.Students;
-import com.guru.depend.exception.UserIdNotFoundException;
-import com.guru.depend.repository.QuestionsRepository;
-import com.guru.depend.repository.QuizRepository;
-import com.guru.depend.repository.StudentAnswerRespository;
-import com.guru.depend.repository.StudentsRepository;
+import com.guru.depend.exception.Useridnotfoundexception;
+import com.guru.depend.repository.Questionsrepository;
+import com.guru.depend.repository.Quizrepository;
+import com.guru.depend.repository.Studentanswerespository;
+import com.guru.depend.repository.Studentsrepository;
 @Service
-public class QuizService {
+public class Quizservice {
 
 	@Autowired
-	private QuizRepository  quizrepository;
+	private Quizrepository  quizrepository;
 	@Autowired
-	 private QuestionsRepository questionsrepository;
+	 private Questionsrepository questionsrepository;
 	@Autowired
-	private StudentsRepository studentsrepository;
+	private Studentsrepository studentsrepository;
 	@Autowired
-	private StudentAnswerRespository studentanswerrepository;
+	private Studentanswerespository studentanswerrepository;
 	
 	public Quiz createRecord(Quiz quiz )
 	{
@@ -39,34 +39,34 @@ public class QuizService {
 		return quizrepository.findAll();
 	}
 	//to get the question and choices 
-    public List<QuestionDTO>  queastion() {
+    public List<Questiondto>  queastion() {
   	List<Questions> ques=questionsrepository.findAll();
-  	List<QuestionDTO> questionDTOs = ques.stream()
+  	List<Questiondto> questionDTOs = ques.stream()
               .map(this::convert)
               .collect(Collectors.toList());
   	return questionDTOs;
     } 
-    public QuestionDTO convert(Questions question) {
- 	return QuestionDTO.builder().id(question.getId()).question(question.getQuestion()).option1(question.getOption1()).option2(question.getOption2()).option3(question.getOption3()).build();
+    public Questiondto convert(Questions question) {
+ 	return Questiondto.builder().id(question.getId()).question(question.getQuestion()).option1(question.getOption1()).option2(question.getOption2()).option3(question.getOption3()).build();
     }
     // to submit the student answer
-    public MessageResponse submitQuiz(QuizSubmissionDTO submissionDTO) {
+    public Messageresponse submitQuiz(Quizsubmissiondto submissionDTO) {
    	Students student=studentsrepository.findById(submissionDTO.getStudentId()).orElseThrow();
    	Quiz quiz =quizrepository.findById(submissionDTO.getQuizId()).orElseThrow();
-   	for(AnswerDTO answerDTo :submissionDTO.getSanswer()) {
+   	for(Answerdto answerDTo :submissionDTO.getSanswer()) {
    	Questions question=questionsrepository.findById(answerDTo.getQuestionId()).orElseThrow();
-   	  StudentAnswer answer=new StudentAnswer();
+   	  Studentanswer answer=new Studentanswer();
     	answer.setStudents(student);
    		answer.setQuiz(quiz);
    		answer.setQuestions(question);
    		answer.setSanswer(answerDTo.getSanswer());	
    	    studentanswerrepository.save(answer);
     	}
-	    return  MessageResponse.builder().message("answer submitted sucessfully").statusCode(200).build();
+	    return  Messageresponse.builder().message("answer submitted sucessfully").statusCode(200).build();
         }
     public String  deleteById(Long id) 
 	 {
-   	Questions question=questionsrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
+   	Questions question=questionsrepository.findById(id).orElseThrow(()-> new Useridnotfoundexception("id not found"));
    	   questionsrepository.delete(question);
    	    return "question updated sucessfully";
 	 }

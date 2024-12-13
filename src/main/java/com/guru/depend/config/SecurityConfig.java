@@ -20,13 +20,13 @@
 
 	@Configuration
 	@EnableWebSecurity
-	public class SecurityConfig {
+	public class Securityconfig {
 		
 		@Autowired
 		private UserDetailsService UserDetailsService;
 		
 		 @Autowired
-		 private JWTFilter twtfilter;
+		 private Jwtfilter twtfilter;
 		@Bean
 		SecurityFilterChain  securitychain(HttpSecurity httpsecurity) throws Exception{
 			
