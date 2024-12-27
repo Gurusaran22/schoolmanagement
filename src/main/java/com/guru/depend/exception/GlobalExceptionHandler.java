@@ -23,6 +23,15 @@ import com.guru.depend.dto.MessageResponse;
 	    			request.getDescription(false));
 	    	return new ResponseEntity<>(messageresponse,HttpStatus.BAD_REQUEST);  
 	    }
+	@ExceptionHandler(InvalidJwtException.class)
+	public ResponseEntity<MessageResponse> handleInvalidJwtException(InvalidJwtException exception,WebRequest request) {
+		MessageResponse MessageResponse = new MessageResponse(
+				HttpStatus.FORBIDDEN.value(),
+				new Date(),
+				exception.getMessage(),
+				request.getDescription(false));
+		return new ResponseEntity<>(MessageResponse, HttpStatus.FORBIDDEN);
+	}
 	}
 
 

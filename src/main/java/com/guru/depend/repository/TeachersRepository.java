@@ -1,6 +1,7 @@
 package com.guru.depend.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,8 +18,6 @@ public interface TeachersRepository extends JpaRepository<Teachers, Long> {
 	
 	   Long teacherscountBySchoolId(@Param("id") Long id);
 
-	
-	
 
-    
+	//Teachers findByEmail(String username);
 }

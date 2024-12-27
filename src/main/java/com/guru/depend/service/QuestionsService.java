@@ -24,13 +24,13 @@ public class QuestionsService {
 	{
 		return questionsrepository.findAll();
 	}
-	//to update the question details by the help of questionid
+	//to update the question details by the help of questionId
     public String  updateQuestion(Long id,Questions questions) 
 	 {
     	Questions question=questionsrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
     	    question.setId(id);
     	    questionsrepository.save(question);
-    	    return "question updated sucessfully";
+    	    return "question updated successfully";
 	 }
     // to get the particular question with the help of question id
     public List<QuestionDTO>  getQuestion(Long id) {
@@ -47,11 +47,11 @@ public class QuestionsService {
     public List<QuestionDTO> getQuestionBySubject(Long id){
     	return questionsrepository.findBysubject_id(id);
     }
-    //to delete the question with the help of questionid  
+    //to delete the question with the help of questionId
     public String deleteById(Long id) {
     	Questions questions=questionsrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"+id)) ;
     			questionsrepository.delete(questions);
-    	return "question deleted sucessfully"+id;
+    	return "question deleted successfully"+id;
     }
     
 }

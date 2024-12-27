@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/api/studentanswers")
-public class Studentanswercontroller {
+@RequestMapping("api/studentanswers")
+public class StudentAnswerController {
 	@Autowired
 	private StudentAnswerService studentanswerservice;
 	//to save the studentanswer
@@ -27,7 +27,7 @@ public class Studentanswercontroller {
 		return studentanswerservice.allData();
 	}
 	//to view the particular student details by the help of studentid
-		@GetMapping("{id}")
+		@GetMapping("/{id}")
 		public StudentAnswer getStudentDetails(@PathVariable Long  id) {
 			return studentanswerservice.getStudentDetails(id);
 		}

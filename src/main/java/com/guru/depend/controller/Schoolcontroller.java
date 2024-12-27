@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.guru.depend.entity.School;
 import com.guru.depend.service.SchoolService;
 @RestController
-@RequestMapping("/api/school")
-public class Schoolcontroller {
+@RequestMapping("api/school")
+public class SchoolController {
 	@Autowired 
 	private SchoolService schoolservice;
 	//to create the school

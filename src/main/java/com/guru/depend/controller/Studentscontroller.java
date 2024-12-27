@@ -16,8 +16,8 @@ import com.guru.depend.entity.Students;
 import com.guru.depend.service.StudentsService;
 @RestController
 
-@RequestMapping("/api/students")
-public class Studentscontroller {
+@RequestMapping("api/students")
+public class StudentsController {
 	@Autowired 
 	private StudentsService studentsservice;
     //to store student

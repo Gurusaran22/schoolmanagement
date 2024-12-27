@@ -1,18 +1,16 @@
 package com.guru.depend.controller;
 
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/teacher")
-public class UserController {
+@RequestMapping("api/admin")
+public class AdminController {
 
     @GetMapping
-    public ResponseEntity<String> userLogin(){
-        return ResponseEntity.ok("****Teacher logged In successfully****");
+    public ResponseEntity<String> adminLogin() {
+        return ResponseEntity.ok("****Admin logged In successfully****");
     }
-
 }

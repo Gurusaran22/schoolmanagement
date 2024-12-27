@@ -15,8 +15,8 @@ import com.guru.depend.service.TeachersService;
 
 @RestController
 
-@RequestMapping("/api/teachers")
-public class Teacherscontroller {
+@RequestMapping("api/teachers")
+public class TeachersController {
 	@Autowired 
 	private TeachersService teachersservice;
 	//to store the teacher

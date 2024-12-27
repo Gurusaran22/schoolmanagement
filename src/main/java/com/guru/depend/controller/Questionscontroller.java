@@ -16,8 +16,8 @@ import com.guru.depend.entity.Questions;
 import com.guru.depend.service.QuestionsService;
 
 @RestController
-@RequestMapping("/api/questions")
-public class Questionscontroller {	
+@RequestMapping("api/questions")
+public class QuestionsController {
 	@Autowired 
 	private QuestionsService questionsservice;
 	//to store an question
@@ -31,11 +31,13 @@ public class Questionscontroller {
 		return questionsservice.allData();
 	}
 	//to view thw question and choices with the help of question id
+
     @GetMapping("/question/{id}")
     public List<QuestionDTO> getQuestion(@PathVariable Long id){
     return questionsservice.getQuestion(id);
     }
     //to get the question and choices based on the subject id
+	@GetMapping("/questions/{id}")
     public List<QuestionDTO> getQuestionBySubject(@PathVariable Long id){
     	return questionsservice.getQuestionBySubject(id);
     }

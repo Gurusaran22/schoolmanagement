@@ -1,46 +1,30 @@
 package com.guru.depend.service;
 
-import java.util.List;
 
+import com.guru.depend.entity.Students;
+import com.guru.depend.entity.Teachers;
+import com.guru.depend.entity.User;
+import com.guru.depend.repository.StudentsRepository;
+import com.guru.depend.repository.TeachersRepository;
+import com.guru.depend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.guru.depend.entity.User;
-import com.guru.depend.repository.userRepository;
+import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
-	@Autowired
-	private userRepository userrepository;
-	
-	@Autowired
-	private JWTService jwtservice;
-	@Autowired
-	private AuthenticationManager auth;
-	
-	 private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	 
-	public User register(User user) {
-		user.setPasssword(encoder.encode(user.getPasssword()));
-		return userrepository.save(user);  
-	}
-    
-	public List<User> allData(){
-		return userrepository.findAll();
-	}
-	 //to verify the user ins there r not
-	public String verify(User user) {
-		Authentication authentication=auth.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPasssword()));
-		
-		if(authentication.isAuthenticated()) {
-			return jwtservice.generateToken(user.getUsername());
-		}
-		else {return "login errr"; }
-	}
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return this.userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found !!!"));
+    }
 
 }

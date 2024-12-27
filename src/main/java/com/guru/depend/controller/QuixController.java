@@ -14,7 +14,7 @@ import com.guru.depend.entity.Quiz;
 import com.guru.depend.service.QuizService;
 
 @RestController
-@RequestMapping("/api/quiz")
+@RequestMapping("api/quiz")
 public class QuixController {
 	@Autowired
 	private QuizService quizservice;
@@ -22,10 +22,10 @@ public class QuixController {
 	public Quiz addrecord(@RequestBody Quiz quiz) {
 		return quizservice.createRecord(quiz);
 	}
-	 @PostMapping("/submit")
-	    public MessageResponse submitQuiz(@RequestBody QuizSubmissionDTO submissionDTO) {
-	         return quizservice.submitQuiz(submissionDTO);
-	    }
+//	 @PostMapping("/submit")
+//	    public MessageResponse submitQuiz(@RequestBody QuizSubmissionDTO submissionDTO) {
+//	         return quizservice.submitQuiz(submissionDTO);
+//	    }
 	@DeleteMapping("/delete/{id}")
 	public String deleteQuiz(@PathVariable Long id) {
 		return quizservice.deleteById(id);
