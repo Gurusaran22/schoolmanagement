@@ -1,7 +1,14 @@
 package com.guru.depend.controller;
 
+import java.util.Date;
 import java.util.List;
+
+import com.guru.depend.dto.MessageResponse;
+import com.guru.depend.dto.ResponseDTO;
+import com.guru.depend.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,34 +28,59 @@ public class QuestionsController {
 	@Autowired 
 	private QuestionsService questionsservice;
 	//to store an question
-	@PostMapping("/")
-	 public Questions createrecord(@RequestBody Questions questions) {
-		 return questionsservice.createRecord(questions);
-	 }
-	//to view all the questions
-	@GetMapping("/")
-	public List<Questions> allData(){
-		return questionsservice.allData();
+	@PostMapping("/insert")
+	 public ResponseEntity<ResponseDTO>  createrecord(@RequestBody Questions questions) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.CREATED,
+				HttpStatus.CREATED.value(),
+				questionsservice.createRecord(questions));
+		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
-	//to view thw question and choices with the help of question id
+	//to view all the questions
+	@GetMapping("/retrieve")
+	public ResponseEntity<ResponseDTO> allData(){
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.OK.value(),
+				questionsservice.allData());
+		return new ResponseEntity<>(response,HttpStatus.OK);
+	}
 
+	//to view thw question and choices with the help of question id
     @GetMapping("/question/{id}")
-    public List<QuestionDTO> getQuestion(@PathVariable Long id){
-    return questionsservice.getQuestion(id);
+    public ResponseEntity<ResponseDTO> getQuestion(@PathVariable Long id){
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.OK.value(),
+				questionsservice.getQuestion(id));
+		return new ResponseEntity<>(response,HttpStatus.OK);
     }
+
     //to get the question and choices based on the subject id
 	@GetMapping("/questions/{id}")
-    public List<QuestionDTO> getQuestionBySubject(@PathVariable Long id){
-    	return questionsservice.getQuestionBySubject(id);
-    }
+    public ResponseEntity<ResponseDTO> getQuestionBySubject(@PathVariable Long id) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.OK.value(),
+				questionsservice.getQuestionBySubject(id));
+		return new ResponseEntity<>(response,HttpStatus.OK);
+	}
 	//to update the question by id
 	@PutMapping("/update/{id}")
-	public String updateQuestions(@PathVariable Long id,@RequestBody Questions questions) {
-		return questionsservice.updateQuestion(id, questions);
+	public ResponseEntity<ResponseDTO> updateQuestions(@PathVariable Long id,@RequestBody Questions questions) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.MODIFIED,
+				HttpStatus.ACCEPTED.value(),
+				questionsservice.updateQuestion(id, questions));
+		return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
 	}
 	//to delete the question
 	@DeleteMapping("/delete/{id}")
-	public String deleteByIdRecord(@PathVariable Long id){
-		return questionsservice.deleteById(id);
+	public ResponseEntity<ResponseDTO> deleteByIdRecord(@PathVariable Long id){
+		ResponseDTO response = new ResponseDTO(
+				Constants.REMOVED,
+				HttpStatus.ACCEPTED.value(),
+				questionsservice.deleteById(id));
+		return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
 	}
 }

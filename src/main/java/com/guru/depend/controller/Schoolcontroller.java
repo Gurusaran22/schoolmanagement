@@ -2,8 +2,13 @@ package com.guru.depend.controller;
 
 import java.util.List;
 import java.util.Map;
+
+import com.guru.depend.dto.ResponseDTO;
+import com.guru.depend.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,50 +25,93 @@ import com.guru.depend.service.SchoolService;
 public class SchoolController {
 	@Autowired 
 	private SchoolService schoolservice;
+
 	//to create the school
-	@PostMapping("/")
-	public School createschool(@RequestBody School school) {
-		return schoolservice.createRecord(school);
+	@PostMapping("/insert")
+	public ResponseEntity<ResponseDTO> createschool(@RequestBody School school) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.CREATED,
+				HttpStatus.CREATED.value(),
+				schoolservice.createRecord(school));
+		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
+
 	// to get all the schools
-	@GetMapping("/")
-    public List<School> allData(){ 
-		 return schoolservice.allData();
-	 }
+	@GetMapping("/retrieve")
+    public ResponseEntity<ResponseDTO> allData(){
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.FOUND.value(),
+				schoolservice.allData());
+		return new ResponseEntity<>(response,HttpStatus.FOUND);
+		 }
+
 	//to view the particular student details by the help of studentid
 	@GetMapping("{id}")
-	public School getSchoolDetails(@PathVariable Long id) {
-		return schoolservice.getSchoolDetailsById(id);
+	public ResponseEntity<ResponseDTO> getSchoolDetails(@PathVariable Long id)
+	{
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.FOUND.value(),
+				schoolservice.getSchoolDetailsById(id));
+		return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
+
 	//to get the teacher and student for an school
 	@GetMapping("all/{id}")
-	public List<Object> getallstudentandteacherbyschoolname(@PathVariable Long id){
-		return schoolservice.getallstudentandteacherbyschoolname(id);
+	public ResponseEntity<ResponseDTO> getallstudentandteacherbyschoolname(@PathVariable Long id) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.FOUND.value(),
+				schoolservice.getallstudentandteacherbyschoolname(id));
+		return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
 	//to get all students count by school id
 	@GetMapping("/student_count/{id}")
-	public Map<String, Long> getStudentCountById(@PathVariable Long id){
-		return schoolservice.getStudentCountById(id);
+	public ResponseEntity<ResponseDTO> getStudentCountById(@PathVariable Long id) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.FOUND.value(),
+				schoolservice.getStudentCountById(id));
+		return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
 	//to get all teachers count by school id
 	@GetMapping("/teacher_count/{id}")
-	public Map<String, Long> getTeachersById(@PathVariable Long id){
-		return schoolservice.getTeachersById(id);			
+	public ResponseEntity<ResponseDTO> getTeachersById(@PathVariable Long id){
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.FOUND.value(),
+				schoolservice.getTeachersById(id));
+		return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
+
 	//to update the school details by school id
 	@PutMapping("/update/{id}")
-	public Object updateSchool(@PathVariable Long id,@RequestBody School school) {
-		return schoolservice.updateSchool(id, school);
+	public ResponseEntity<ResponseDTO> updateSchool(@PathVariable Long id,@RequestBody School school) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.OK.value(),
+				schoolservice.updateSchool(id, school));
+		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
 	//to delete the school
 	@DeleteMapping("/delete/{id}")
-	public String deleteByIdRecord(@PathVariable Long id)
+	public ResponseEntity<ResponseDTO> deleteByIdRecord(@PathVariable Long id)
 	{
-		return schoolservice.DeleteById(id);
+		ResponseDTO response = new ResponseDTO(
+				Constants.REMOVED,
+				HttpStatus.ACCEPTED.value(),
+				schoolservice.DeleteById(id));
+		return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
 	}
+
 	//sorting the page 
 	@GetMapping("/page")
-	public Page<School> getSchoolByPage(@RequestParam int pageIndex,@RequestParam int pageSize,@RequestParam String field){
-		return schoolservice.getSchoolByPage(pageIndex, pageSize, field);
+	public ResponseEntity<ResponseDTO> getSchoolByPage(@RequestParam int pageIndex,@RequestParam int pageSize,@RequestParam String field) {
+          ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.FOUND.value(),
+				schoolservice.getSchoolByPage(pageIndex,pageSize,field));
+		return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
 }

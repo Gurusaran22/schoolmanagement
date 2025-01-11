@@ -2,6 +2,7 @@ package com.guru.depend.entity;
 
 import com.guru.depend.enums.Role;
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,10 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
+@Data
 @Entity
 public class User implements UserDetails {
-	private static final long serialVersionUID = 1L;
+	private static final long seriersionalVUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,15 +62,15 @@ public class User implements UserDetails {
     @Override
 	public boolean isEnabled() {return true;}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
+//
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
+//
+//	public void setRole(Role role) {
+//		this.role = role;
+//	}
 }

@@ -2,7 +2,6 @@ package com.guru.depend.dto;
 
 public class JwtAuthenticationResponse {
 
-    private  String status;
     private String token;
     private String refreshToken;
 
@@ -16,6 +15,5 @@ public class JwtAuthenticationResponse {
         return refreshToken;
     }
     public void setRefreshToken(String refreshToken) {this.refreshToken = refreshToken;}
-    public String getStatus() {return status;}
-    public void setStatus(String status) {this.status = status;}
+
 }

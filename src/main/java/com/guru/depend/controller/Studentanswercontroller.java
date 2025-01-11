@@ -1,7 +1,12 @@
 package com.guru.depend.controller;
 
 import java.util.List;
+
+import com.guru.depend.dto.ResponseDTO;
+import com.guru.depend.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,21 +21,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class StudentAnswerController {
 	@Autowired
 	private StudentAnswerService studentanswerservice;
+
 	//to save the studentanswer
-	@PostMapping("/")
-	public StudentAnswer addrecord(@RequestBody StudentAnswer studentanswer) {
-		return studentanswerservice.addRecord(studentanswer);
+	@PostMapping("/insert")
+	public ResponseEntity<ResponseDTO> addrecord(@RequestBody StudentAnswer studentanswer) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.CREATED,
+				HttpStatus.CREATED.value(),
+				studentanswerservice.addRecord(studentanswer));
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	//to get all studentsanswers
-	@GetMapping("/")
-	public List<StudentAnswer> getalldata(StudentAnswer studentanswer) {
-		return studentanswerservice.allData();
+	@GetMapping("/retrieve")
+	public ResponseEntity<ResponseDTO> getalldata(StudentAnswer studentanswer) {
+			ResponseDTO response = new ResponseDTO(
+					Constants.RETRIEVED,
+					HttpStatus.FOUND.value(),
+					studentanswerservice.allData());
+			return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
+
 	//to view the particular student details by the help of studentid
-		@GetMapping("/{id}")
-		public StudentAnswer getStudentDetails(@PathVariable Long  id) {
-			return studentanswerservice.getStudentDetails(id);
-		}
+	@GetMapping("/{id}")
+	public ResponseEntity<ResponseDTO> getStudentDetails(@PathVariable Long  id) {
+			ResponseDTO response = new ResponseDTO(
+					Constants.RETRIEVED,
+					HttpStatus.FOUND.value(),
+					studentanswerservice.getStudentDetails(id));
+			return new ResponseEntity<>(response,HttpStatus.FOUND);
+	}
 	
 }
 		

@@ -1,7 +1,12 @@
 package com.guru.depend.controller;
 
 import java.util.List;
+
+import com.guru.depend.dto.ResponseDTO;
+import com.guru.depend.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,20 +23,41 @@ import com.guru.depend.service.SubjectService;
 public class SubjectContoller {
 	@Autowired
 	private SubjectService subjectservice;
-	@PostMapping("/")
-	public Subject addrecord( @RequestBody Subject subject) {
-		return subjectservice.createRecord(subject);
+
+	@PostMapping("/insert")
+	public ResponseEntity<ResponseDTO> addrecord(@RequestBody Subject subject) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.CREATED,
+				HttpStatus.CREATED.value(),
+				subjectservice.createRecord(subject));
+		return new ResponseEntity<>(response,HttpStatus.CREATED);
+		//return this.subjectservice.createRecord(subject);
 	}
-	@GetMapping("/")
-	public List<Subject> allData(){
-		return subjectservice.allData();
+
+	@GetMapping("/retrieve")
+	public ResponseEntity<ResponseDTO> allData(){
+
+		ResponseDTO response = new ResponseDTO(
+				Constants.RETRIEVED,
+				HttpStatus.FOUND.value(),
+				subjectservice.allData());
+		return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
+
 	@PutMapping("/update/{id}")
-	public String updateRecord(@PathVariable Long id,@RequestBody Subject subject) {
-		return subjectservice.updateSubject(id, subject);
+	public ResponseEntity<ResponseDTO> updateRecord(@PathVariable Long id,@RequestBody Subject subject) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.MODIFIED,
+				HttpStatus.ACCEPTED.value(),
+				subjectservice.updateSubject(id, subject));
+		return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
 	}
 	@DeleteMapping("/delete/{id}")
-	public String deleteQuiz(@PathVariable Long id) {
-		return subjectservice.deleteById(id);
+	public ResponseEntity<ResponseDTO> deleteQuiz(@PathVariable Long id) {
+		ResponseDTO response = new ResponseDTO(
+				Constants.REMOVED,
+				HttpStatus.OK.value(),
+				subjectservice.deleteById(id));
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 }

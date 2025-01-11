@@ -1,6 +1,8 @@
 package com.guru.depend.controller;
 
 import java.util.List;
+
+import com.guru.depend.dto.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,29 +21,32 @@ import com.guru.depend.service.TeachersService;
 public class TeachersController {
 	@Autowired 
 	private TeachersService teachersservice;
+
 	//to store the teacher
-	@PostMapping("/")
-	public Teachers createRecord(@RequestBody Teachers teachers) {
-		return teachersservice.createRecord(teachers);
+	@PostMapping("/insert")
+	public ResponseDTO createRecord(@RequestBody Teachers teachers) {
+		return this.teachersservice.createRecord(teachers);
 	}
+
 	//to view the teachers
-	@GetMapping("/")
-	public List<Teachers> allData(){
-		return teachersservice.allData();
+	@GetMapping("/retrieve")
+	public ResponseDTO allData(){
+		return this.teachersservice.allData();
 	}
+
 	//to view the particular teacher details by the help of studentid
 	@GetMapping("{id}")
-	public Teachers getteacherDetails( @PathVariable Long id) {
-		return teachersservice.getTeachersDetails(id);
+	public ResponseDTO getteacherDetails( @PathVariable Long id) {
+		return this.teachersservice.getTeachersDetails(id);
 	}
+
 	//to update the teacher by teacherid
 	@PutMapping("/update/{id}")
-	public String updateQuestions(@PathVariable Long id,@RequestBody  Teachers teachers ) {
-		return teachersservice.updateTeacher(id, teachers);
-    }
+	public ResponseDTO updateQuestions(@PathVariable Long id,@RequestBody  Teachers teachers ) {return this.teachersservice.updateTeacher(id, teachers);}
+
 	//to delete the teacher by teacherid
 	@DeleteMapping("/delete/{id}")
-	public String deleteByIdRecord(@PathVariable Long id){
-		return teachersservice.deleteById(id);
+	public ResponseDTO deleteByIdRecord(@PathVariable Long id){
+		return this.teachersservice.deleteById(id);
 	}
 }

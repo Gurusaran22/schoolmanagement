@@ -8,7 +8,7 @@ import com.guru.depend.entity.School;
 
 @Repository
 public interface SchoolRepository extends JpaRepository<School, Long> {
- 
-	//Page<School> getSchoolByField(int pageIndex,int pageSize,String field);
+
+    //Page<School> getSchoolByField(int pageIndex,int pageSize,String field);
 }
 	

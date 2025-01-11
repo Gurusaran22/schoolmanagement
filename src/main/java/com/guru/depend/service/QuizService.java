@@ -2,12 +2,11 @@ package com.guru.depend.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.guru.depend.dto.*;
+import com.guru.depend.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.guru.depend.dto.AnswerDTO;
-import com.guru.depend.dto.MessageResponse;
-import com.guru.depend.dto.QuestionDTO;
-import com.guru.depend.dto.QuizSubmissionDTO;
 import com.guru.depend.entity.Questions;
 import com.guru.depend.entity.Quiz;
 import com.guru.depend.entity.StudentAnswer;
@@ -29,10 +28,8 @@ public class QuizService {
 	@Autowired
 	private StudentAnswerRespository studentanswerrepository;
 	
-	public Quiz createRecord(Quiz quiz )
-	{
-		return quizrepository.save(quiz);
-	}
+	public Quiz createRecord(Quiz quiz ) {
+		return quizrepository.save(quiz);}
     //to view all the data
 //	public List<Quiz> allData()
 //	{
@@ -64,10 +61,9 @@ public class QuizService {
 //    	}
 //	    return  MessageResponse.builder().message("answer submitted sucessfully").statusCode(200).build();
 //        }
-    public String  deleteById(Long id) 
-	 {
-   	Questions question=questionsrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
-   	   questionsrepository.delete(question);
-   	    return "question updated sucessfully";
-	 }
+    public String  deleteById(Long id) {
+		Questions question = questionsrepository.findById(id).orElseThrow(() -> new UserIdNotFoundException("id not found"));
+		questionsrepository.delete(question);
+		return "**";
+	}
 }
