@@ -23,4 +23,5 @@ public class Students  {
 	@ManyToOne
 	private School school;
 
+
 }

@@ -32,7 +32,7 @@ public class QuestionsController {
 	 public ResponseEntity<ResponseDTO>  createrecord(@RequestBody Questions questions) {
 		ResponseDTO response = new ResponseDTO(
 				Constants.CREATED,
-				HttpStatus.CREATED.value(),
+				HttpStatus.CREATED.value(),"question created successfully",
 				questionsservice.createRecord(questions));
 		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
@@ -41,7 +41,7 @@ public class QuestionsController {
 	public ResponseEntity<ResponseDTO> allData(){
 		ResponseDTO response = new ResponseDTO(
 				Constants.RETRIEVED,
-				HttpStatus.OK.value(),
+				HttpStatus.OK.value(),"question retrieved successfully",
 				questionsservice.allData());
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
@@ -51,26 +51,26 @@ public class QuestionsController {
     public ResponseEntity<ResponseDTO> getQuestion(@PathVariable Long id){
 		ResponseDTO response = new ResponseDTO(
 				Constants.RETRIEVED,
-				HttpStatus.OK.value(),
+				HttpStatus.OK.value(),"question retrieved successfully",
 				questionsservice.getQuestion(id));
 		return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-    //to get the question and choices based on the subject id
-	@GetMapping("/questions/{id}")
-    public ResponseEntity<ResponseDTO> getQuestionBySubject(@PathVariable Long id) {
-		ResponseDTO response = new ResponseDTO(
-				Constants.RETRIEVED,
-				HttpStatus.OK.value(),
-				questionsservice.getQuestionBySubject(id));
-		return new ResponseEntity<>(response,HttpStatus.OK);
-	}
+//    //to get the question and choices based on the subject id
+//	@GetMapping("/questions/{id}")
+//    public ResponseEntity<ResponseDTO> getQuestionBySubject(@PathVariable Long id) {
+//		ResponseDTO response = new ResponseDTO(
+//				Constants.RETRIEVED,
+//				HttpStatus.OK.value(),"question retrieved successfully",
+//				questionsservice.getQuestionBySubject(id));
+//		return new ResponseEntity<>(response,HttpStatus.OK);
+//	}
 	//to update the question by id
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ResponseDTO> updateQuestions(@PathVariable Long id,@RequestBody Questions questions) {
 		ResponseDTO response = new ResponseDTO(
 				Constants.MODIFIED,
-				HttpStatus.ACCEPTED.value(),
+				HttpStatus.ACCEPTED.value(),"question updated successfully",
 				questionsservice.updateQuestion(id, questions));
 		return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
 	}
@@ -79,7 +79,7 @@ public class QuestionsController {
 	public ResponseEntity<ResponseDTO> deleteByIdRecord(@PathVariable Long id){
 		ResponseDTO response = new ResponseDTO(
 				Constants.REMOVED,
-				HttpStatus.ACCEPTED.value(),
+				HttpStatus.ACCEPTED.value(),"question deleted successfully",
 				questionsservice.deleteById(id));
 		return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
 	}

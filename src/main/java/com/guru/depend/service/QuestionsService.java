@@ -28,6 +28,14 @@ public class QuestionsService {
     public Questions  updateQuestion(Long id,Questions questions){
     	Questions question=questionsrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
     	    question.setId(id);
+			question.setQuestion(question.getQuestion());
+			question.setOption1(question.getOption1());
+			question.setOption2(questions.getOption2());
+			question.setOption3(question.getOption3());
+		    question.setCorrectAnswer(question.getCorrectAnswer());
+			question.setTeachers(question.getTeachers());
+		    question.setSubject(question.getSubject());
+			question.setQuiz(question.getQuiz());
 		 return questionsrepository.save(question);
 	 }
 

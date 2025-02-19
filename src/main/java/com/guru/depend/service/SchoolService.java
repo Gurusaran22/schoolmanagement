@@ -77,6 +77,9 @@ public class SchoolService {
 	 {
     	School schl=schoolrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
     	    schl.setId(id);
+			schl.setName(schl.getName());
+			schl.setEmailId(schl.getEmailId());
+			schl.setLocation(schl.getLocation());
 		 return schoolrepository.save(schl);
 	 }
 	 
@@ -87,11 +90,11 @@ public class SchoolService {
     	    schoolrepository.delete(schl);
 		 return "**";
 	 }
+
 	 public Page<School> getSchoolByPage(int pageIndex, int pageSize, String field){
 		     Sort sort=Sort.by(Sort.Direction.ASC,field);
 	        Pageable pageReq=PageRequest.of(pageIndex, pageSize, sort);
 		 return schoolrepository.findAll(pageReq);
-
 		 //sorting the page
 	 }
 	 

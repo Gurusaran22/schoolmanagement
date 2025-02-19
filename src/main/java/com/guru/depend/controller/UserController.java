@@ -18,7 +18,7 @@ public class UserController {
         ResponseDTO response = new ResponseDTO(
                 Constants.ACTIVATED,
                 HttpStatus.ACCEPTED.value(),
-                "****Teacher logged In successfully****");
+                "****Teacher logged In successfully****",null);
         return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 

@@ -2,16 +2,20 @@ package com.guru.depend.service;
 
 import com.guru.depend.dto.*;
 import com.guru.depend.entity.User;
+import com.guru.depend.exception.InvalidJwtException;
 import com.guru.depend.repository.UserRepository;
 import com.guru.depend.enums.Role;
 import com.guru.depend.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 
@@ -54,18 +58,21 @@ public class LoginService {
         teacher.setRole(Role.TUTOR);
         return userRepository.save(teacher);
     }
-    public JwtAuthenticationResponse signIn(SignInRequest signInRequest) {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
-        } catch (BadCredentialsException e) {
-           // return  ResponseDTO.builder().status(Constants.NOT_FOUND).statusCode(403).message("Incorrect email or password").data("***").build();
-            throw new IllegalArgumentException("Incorrect email or password");
+    public  JwtAuthenticationResponse signIn(SignInRequest signInRequest) throws InvalidJwtException {
+        if (!StringUtils.hasText(signInRequest.getEmail())) {
+            throw new InvalidJwtException("email not found");
+        }
+        if (!StringUtils.hasText(signInRequest.getPassword())) {
+            throw new InvalidJwtException("password not found");
         }
 
         User user = this.userRepository.findByEmail(signInRequest.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + signInRequest.getEmail()));
+                .orElseThrow(() -> new BadCredentialsException("Incorrect email "));
 
+        boolean isPasswordValid = passwordEncoder.matches(signInRequest.getPassword(), user.getPassword());
+        if (!isPasswordValid) {
+            throw new BadCredentialsException("Incorrect password");
+        }
         String jwt = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 
@@ -90,3 +97,15 @@ public class LoginService {
     }
 }
 
+// boolean isValid = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword())) != null;
+//
+//        if (!isValid) {
+//            throw new BadCredentialsException("Incorrect email or password");
+//        }
+//     try {
+//            authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
+//        } catch (BadCredentialsException e) {
+//            throw new BadCredentialsException("Incorrect email or password");
+//        }

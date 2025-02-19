@@ -28,7 +28,7 @@ public class SubjectContoller {
 	public ResponseEntity<ResponseDTO> addrecord(@RequestBody Subject subject) {
 		ResponseDTO response = new ResponseDTO(
 				Constants.CREATED,
-				HttpStatus.CREATED.value(),
+				HttpStatus.CREATED.value(),"subject created successfully",
 				subjectservice.createRecord(subject));
 		return new ResponseEntity<>(response,HttpStatus.CREATED);
 		//return this.subjectservice.createRecord(subject);
@@ -39,7 +39,7 @@ public class SubjectContoller {
 
 		ResponseDTO response = new ResponseDTO(
 				Constants.RETRIEVED,
-				HttpStatus.FOUND.value(),
+				HttpStatus.FOUND.value(),"subject retrieved successfully",
 				subjectservice.allData());
 		return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
@@ -48,7 +48,7 @@ public class SubjectContoller {
 	public ResponseEntity<ResponseDTO> updateRecord(@PathVariable Long id,@RequestBody Subject subject) {
 		ResponseDTO response = new ResponseDTO(
 				Constants.MODIFIED,
-				HttpStatus.ACCEPTED.value(),
+				HttpStatus.ACCEPTED.value(),"subject updated successfully",
 				subjectservice.updateSubject(id, subject));
 		return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
 	}
@@ -56,7 +56,7 @@ public class SubjectContoller {
 	public ResponseEntity<ResponseDTO> deleteQuiz(@PathVariable Long id) {
 		ResponseDTO response = new ResponseDTO(
 				Constants.REMOVED,
-				HttpStatus.OK.value(),
+				HttpStatus.OK.value(),"subject deleted successfully",
 				subjectservice.deleteById(id));
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}

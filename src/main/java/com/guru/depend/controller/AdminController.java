@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.stream.Stream;
+
 @RestController
 @RequestMapping("api/admin")
 public class AdminController {
@@ -17,7 +19,7 @@ public class AdminController {
         ResponseDTO response = new ResponseDTO(
                 Constants.ACTIVATED,
                 HttpStatus.ACCEPTED.value(),
-                "****Admin logged In successfully****");
+                "****Admin logged In successfully****",null);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
        }
 }

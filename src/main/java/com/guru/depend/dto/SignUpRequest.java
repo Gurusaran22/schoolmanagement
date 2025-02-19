@@ -1,9 +1,16 @@
 package com.guru.depend.dto;
 
+import com.guru.depend.enums.Role;
+
 public class SignUpRequest {
 
     private String email;
     private String password;
+
+    public SignUpRequest(String email, String password, Role student) {
+        this.email = email;
+        this.password = password;
+    }
 
     public String getEmail() {
         return email;

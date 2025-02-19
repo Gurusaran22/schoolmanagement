@@ -20,7 +20,7 @@ public class StudentController {
     public ResponseEntity<ResponseDTO> createRecord(@RequestBody Students students) {
         ResponseDTO response = new ResponseDTO(
                 Constants.CREATED,
-                HttpStatus.CREATED.value(),
+                HttpStatus.CREATED.value(),"student created successfully",
                 studentsService.createRecord(students));
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
@@ -30,7 +30,7 @@ public class StudentController {
     public ResponseEntity<ResponseDTO> allData(){
         ResponseDTO response = new ResponseDTO(
                 Constants.RETRIEVED,
-                HttpStatus.FOUND.value(),
+                HttpStatus.FOUND.value(),"student retrieved successfully",
                 studentsService.allData());
         return new ResponseEntity<>(response,HttpStatus.FOUND);
     }
@@ -40,7 +40,7 @@ public class StudentController {
     public ResponseEntity<ResponseDTO> studentScore(@PathVariable Long id) {
         ResponseDTO response = new ResponseDTO(
                 Constants.RETRIEVED,
-                HttpStatus.FOUND.value(),
+                HttpStatus.FOUND.value(),"student mark retrieved successfully",
                 studentsService.evaluateStudentMark(id));
         return new ResponseEntity<>(response,HttpStatus.FOUND);
     }
@@ -56,7 +56,7 @@ public class StudentController {
     public ResponseEntity<ResponseDTO> getStudentDetails(@PathVariable Long  id) {
         ResponseDTO response = new ResponseDTO(
                 Constants.RETRIEVED,
-                HttpStatus.FOUND.value(),
+                HttpStatus.FOUND.value(),"student details retrieved successfully",
                 studentsService.getStudentDetails(id));
         return new ResponseEntity<>(response,HttpStatus.FOUND);
     }
@@ -66,7 +66,7 @@ public class StudentController {
     public ResponseEntity<ResponseDTO> allstudentsmarks(){
     ResponseDTO response = new ResponseDTO(
             Constants.RETRIEVED,
-            HttpStatus.FOUND.value(),
+            HttpStatus.FOUND.value(),"student mark retrieved successfully",
             studentsService.allstudentsMark());
 		return new ResponseEntity<>(response,HttpStatus.FOUND);
 }
@@ -76,7 +76,7 @@ public class StudentController {
     public ResponseEntity<ResponseDTO> updateStudent(@PathVariable Long id,@RequestBody Students students){
        ResponseDTO response = new ResponseDTO(
                Constants.MODIFIED,
-               HttpStatus.ACCEPTED.value(),
+               HttpStatus.ACCEPTED.value(),"student updated successfully",
                studentsService.updateStudent(id, students));
        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
    }
@@ -86,7 +86,7 @@ public class StudentController {
     public ResponseEntity<ResponseDTO> deleteStudent(@PathVariable Long id){
         ResponseDTO response = new ResponseDTO(
                 Constants.REMOVED,
-                HttpStatus.OK.value(),
+                HttpStatus.OK.value(),"student deleted successfully",
                 studentsService.deleteById(id));
         return new ResponseEntity<>(response,HttpStatus.OK);
     }

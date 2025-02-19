@@ -27,6 +27,7 @@ public class QuixController {
 		ResponseDTO response = new ResponseDTO(
 				Constants.CREATED,
 				HttpStatus.CREATED.value(),
+				"quiz created successfully",
 				quizservice.createRecord(quiz));
 		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
@@ -34,12 +35,12 @@ public class QuixController {
 //	    public MessageResponse submitQuiz(@RequestBody QuizSubmissionDTO submissionDTO) {
 //	         return quizservice.submitQuiz(submissionDTO);
 //	    }
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<ResponseDTO> deleteQuiz(@PathVariable Long id) {
-		ResponseDTO response = new ResponseDTO(
-				Constants.REMOVED,
-				HttpStatus.OK.value(),
-				quizservice.deleteById(id));
-		return new ResponseEntity<>(response,HttpStatus.OK);
-	}
+//	@DeleteMapping("/delete/{id}")
+//	public ResponseEntity<ResponseDTO> deleteQuiz(@PathVariable Long id) {
+//		ResponseDTO response = new ResponseDTO(
+//				Constants.REMOVED,
+//				HttpStatus.OK.value(),"quiz deleted successfully",
+//				quizservice.deleteById(id));
+//		return new ResponseEntity<>(response,HttpStatus.OK);
+//	}
 }

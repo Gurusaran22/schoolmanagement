@@ -34,7 +34,7 @@ public class JwtService {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
@@ -47,7 +47,7 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    private Key getSignKey() {
+    public Key getSignKey() {
         byte[] key = Decoders.BASE64.decode("8523698521478569874563214587532569854769321458756985647315987582");
         return Keys.hmacShaKeyFor(key);
     }

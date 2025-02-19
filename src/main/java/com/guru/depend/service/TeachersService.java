@@ -16,35 +16,35 @@ public class TeachersService {
 	private TeachersRepository teachersrepository;
 	 
 	//to save the teacher
-	public ResponseDTO createRecord(Teachers teachers) {
-		return ResponseDTO.builder().status(Constants.CREATED).statusCode(200).data(teachersrepository.save(teachers)).build();
+	public Teachers createRecord(Teachers teachers) {
+		return teachersrepository.save(teachers);
     }
 	
 	//to view all the data
-    public ResponseDTO allData() {
-		return ResponseDTO.builder().status(Constants.RETRIEVED).statusCode(200).data(teachersrepository.findAll()).build();
+    public List<Teachers> allData() {
+		return teachersrepository.findAll();
     }
     
 	//to view the particular teacher details by the help of teacherid
-    public ResponseDTO getTeachersDetails(Long id) {
+    public Teachers getTeachersDetails(Long id) {
 	Teachers	teacher=teachersrepository.findById(id).orElseThrow(()->new UserIdNotFoundException("teacher not found by this id"));
-		return ResponseDTO.builder().status(Constants.FOUND).statusCode(200).data(teacher).build();
+		return teacher;
     }
 	
 	//to update the school details by the help of teacherid
-	public ResponseDTO  updateTeacher(Long id,Teachers teachers)
+	public Teachers  updateTeacher(Long id,Teachers teachers)
 	 {
   	Teachers teacher=teachersrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
   	    teacher.setId(id);
-		 return ResponseDTO.builder().status(Constants.MODIFIED).statusCode(200).data( teachersrepository.save(teacher)).build();
+		 return teachersrepository.save(teacher);
 	 }
    
 	//to delete the teacher with the help of teacherid  
-	public ResponseDTO  deleteById(Long id)
+	public String  deleteById(Long id)
 	 {
  	Teachers teacher=teachersrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
  	    teachersrepository.delete(teacher);
-		 return ResponseDTO.builder().status(Constants.REMOVED).statusCode(200).data("****").build();
+		 return "****";
 	 }
  }
 

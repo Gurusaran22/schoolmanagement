@@ -15,4 +15,5 @@ public class School {
 	private String name;
 	private String emailId;
 	private String location;
+
 }

@@ -27,7 +27,7 @@ public class StudentAnswerController {
 	public ResponseEntity<ResponseDTO> addrecord(@RequestBody StudentAnswer studentanswer) {
 		ResponseDTO response = new ResponseDTO(
 				Constants.CREATED,
-				HttpStatus.CREATED.value(),
+				HttpStatus.CREATED.value(),"student answered successfully",
 				studentanswerservice.addRecord(studentanswer));
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
@@ -36,7 +36,7 @@ public class StudentAnswerController {
 	public ResponseEntity<ResponseDTO> getalldata(StudentAnswer studentanswer) {
 			ResponseDTO response = new ResponseDTO(
 					Constants.RETRIEVED,
-					HttpStatus.FOUND.value(),
+					HttpStatus.FOUND.value(),"studentanswers retrieved successfully",
 					studentanswerservice.allData());
 			return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}
@@ -46,7 +46,7 @@ public class StudentAnswerController {
 	public ResponseEntity<ResponseDTO> getStudentDetails(@PathVariable Long  id) {
 			ResponseDTO response = new ResponseDTO(
 					Constants.RETRIEVED,
-					HttpStatus.FOUND.value(),
+					HttpStatus.FOUND.value(),"studentanswer retrieved successfully",
 					studentanswerservice.getStudentDetails(id));
 			return new ResponseEntity<>(response,HttpStatus.FOUND);
 	}

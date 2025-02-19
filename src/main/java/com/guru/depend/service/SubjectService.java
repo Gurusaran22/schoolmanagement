@@ -30,6 +30,7 @@ public class SubjectService {
 	 {
    	Subject std=subjectrepository.findById(id).orElseThrow(()-> new UserIdNotFoundException("id not found"));
    	    std.setId(id);
+		   std.setSubjectName(subject.getSubjectName());
 		 return subjectrepository.save(std);
 	 }
  
